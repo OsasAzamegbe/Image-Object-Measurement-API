@@ -7,11 +7,12 @@ import imutils
 import cv2
 
 
+
 def midpoint(ptA, ptB):
     '''
     Helper function for computing midpoint of a line.
     '''
-	return ((ptA[0] + ptB[0]) * 0.5, (ptA[1] + ptB[1]) * 0.5)
+    return ((ptA[0] + ptB[0]) * 0.5, (ptA[1] + ptB[1]) * 0.5)  
 
 
 def preprocess(image): 
@@ -39,17 +40,17 @@ def getContours(gray):
     cnts = imutils.grab_contours(cnts)
     return cnts
 
-def driver(image):
+def driver(image, ref):
     '''
     Driver function for getting size of objects in image
     '''
     processed_image = preprocess(image)
-    cnts = getContours(preprocessed_image)
+    cnts = getContours(processed_image)
     # sort the contours from left-to-right and initialize the
     # 'pixels per metric' calibration variable
     (cnts, _) = contours.sort_contours(cnts)
     pixelsPerMetric = None
-    width = 0.955 # default pixel to inch conversion based on the width of our reference object (US quarter coin)
+    width = ref # default pixel to inch conversion based on the width of our reference object (US quarter coin)
     counter = 1 # initialize counter variable for naming our different images with their contours
 
     # loop over the contours individually
@@ -121,4 +122,26 @@ def driver(image):
             (int(trbrX + 10), int(trbrY)), cv2.FONT_HERSHEY_SIMPLEX,
             0.65, (255, 255, 255), 2)
 
-        with open('')
+        # save the image in the images folder
+        cv2.imwrite(f'./images/results/result_{counter}.jpg', orig)
+        counter += 1
+
+
+def test(i, ref):
+    '''
+    Test function to make sure images are processed and objects are measured
+    '''
+    if 1 <= i <= 3:
+        image = cv2.imread(f'./images/example_0{i}.png')
+        driver(image, ref)
+        return "Successful"
+    return "Input number, i, between 1 and 3"
+
+'''
+image no.       ref
+1               0.955
+2               0.955
+3               3.5
+'''
+output = test(1, 0.955)
+print(output)
