@@ -51,7 +51,8 @@ def driver(image, ref):
     (cnts, _) = contours.sort_contours(cnts)
     pixelsPerMetric = None
     width = ref # default pixel to inch conversion based on the width of our reference object (US quarter coin)
-    counter = 1 # initialize counter variable for naming our different images with their contours
+    # counter = 1 # initialize counter variable for naming our different images with their contours
+    orig = image.copy() # create copy for resulting image
 
     # loop over the contours individually
     for c in cnts:
@@ -59,8 +60,7 @@ def driver(image, ref):
         if cv2.contourArea(c) < 100:
             continue
 
-        # compute the rotated bounding box of the contour
-        orig = image.copy()
+        # compute the rotated bounding box of the contour        
         box = cv2.minAreaRect(c)
         box = cv2.cv.BoxPoints(box) if imutils.is_cv2() else cv2.boxPoints(box)
         box = np.array(box, dtype="int")
@@ -117,14 +117,14 @@ def driver(image, ref):
         # draw the object sizes on the image
         cv2.putText(orig, "{:.1f}in".format(dimA),
             (int(tltrX - 15), int(tltrY - 10)), cv2.FONT_HERSHEY_SIMPLEX,
-            0.65, (255, 255, 255), 2)
+            0.35, (255, 255, 255), 1)
         cv2.putText(orig, "{:.1f}in".format(dimB),
             (int(trbrX + 10), int(trbrY)), cv2.FONT_HERSHEY_SIMPLEX,
-            0.65, (255, 255, 255), 2)
+            0.35, (255, 255, 255), 1)
 
-        # save the image in the images folder
-        cv2.imwrite(f'./images/results/result_{counter}.jpg', orig)
-        counter += 1
+    # save the image in the images folder
+    cv2.imwrite(f'./images/results/result.jpg', orig)
+    # counter += 1
 
 
 def test(i, ref):
