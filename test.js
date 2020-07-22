@@ -21,7 +21,10 @@ var convertToBase64 = function(url, imagetype, callback){
     img.crossOrigin = 'Anonymous'
 
     // Because image loading is asynchronous, we define an event listening function that will be called when the image has been loaded
+    console.log("preload...");
+    console.log();
     img.onload = function(){
+        
         // When the image is loaded, this function is called with the image object as its context or 'this' value
         canvas.height = this.height;
         canvas.width = this.width;
@@ -62,15 +65,43 @@ var sendBase64ToServer = function(name, base64){
 
 var uploadImage = function(src, name, type){
     convertToBase64(src, type, function(data){
-        sendBase64ToServer(name, data);
+        console.log(data);
+        // sendBase64ToServer(name, data);
     });
 };
+
+
+
+// Get captured file url
+const output = document.getElementById('output');
+
+function doSomethingWithFiles(fileList) {
+let file = null;
+
+for (let i = 0; i < fileList.length; i++) {
+    if (fileList[i].type.match(/^image\//)) {
+    file = fileList[i];    
+    break;
+    }
+}
+
+if (file !== null) {
+    const fileUrl = URL.createObjectURL(file),
+    fileName = file.name,
+    fileType = file.type;
+    console.log("image:", fileUrl)
+    output.src = fileUrl;
+    return fileName, fileType, fileUrl;
+}
+
+}
+
 
 // Call the function with the provided values. The mime type could also be png
 // or webp
 const imageInput = document.getElementById("screen-picture");
 imageInput.addEventListener('change', (e) =>{
-    console.log("image:", e.target.files[0])
-    console.log("example_01:")
-    uploadImage('images/example_01.png', 'example_01.png', 'image/png');
+    const files = e.target.files;    
+    let fileName, fileType, fileUrl = doSomethingWithFiles(files);
+    uploadImage(fileUrl, fileName, fileType);
 });
