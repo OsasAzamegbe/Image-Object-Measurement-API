@@ -5,8 +5,13 @@ import numpy as np
 import argparse
 import imutils
 import cv2
+import base64
+from PIL import Image
 
-
+def decodeImage(imgstring):
+    imgdata = base64.b64decode(str(imgstring))
+    image = Image.open(io.BytesIO(imgdata))
+    return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
 
 def midpoint(ptA, ptB):
     '''
