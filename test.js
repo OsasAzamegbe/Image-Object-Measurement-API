@@ -47,16 +47,20 @@ var sendBase64ToServer = function(name, base64){
     var httpPost = new XMLHttpRequest(),
         path = "http://127.0.0.1:8000/uploadImage/" + name,
         data = JSON.stringify({image: base64});
+        console.log(data);
+        console.log(path)
     httpPost.onreadystatechange = function(err) {
-            if (httpPost.readyState == 4 && httpPost.status == 200){
-                console.log(httpPost.responseText);
-            } else {
-                console.log(err);
-            }
-        };
-    // Set the content type of the request to json since that's what's being sent
-    httpPost.setHeader('Content-Type', 'application/json');
+        if (httpPost.readyState == 4 && httpPost.status == 200){
+            console.log("SUCCESS:", httpPost.responseText);
+        } else {
+            console.log(err);
+        }
+    };
+      
     httpPost.open("POST", path, true);
+    
+    // Set the content type of the request to json since that's what's being sent
+    httpPost.setRequestHeader('Content-Type', 'application/json');
     httpPost.send(data);
 };
 
@@ -64,9 +68,8 @@ var sendBase64ToServer = function(name, base64){
 // image type and perform the request
 
 var uploadImage = function(src, name, type){
-    convertToBase64(src, type, function(data){
-        console.log(data);
-        // sendBase64ToServer(name, data);
+    convertToBase64(src, type, function(data){        
+        sendBase64ToServer(name, data);
     });
 };
 
@@ -89,9 +92,8 @@ if (file !== null) {
     const fileUrl = URL.createObjectURL(file),
     fileName = file.name,
     fileType = file.type;
-    console.log("image:", fileUrl)
     output.src = fileUrl;
-    return fileName, fileType, fileUrl;
+    return [fileUrl, fileName, fileType];
 }
 
 }
@@ -102,6 +104,7 @@ if (file !== null) {
 const imageInput = document.getElementById("screen-picture");
 imageInput.addEventListener('change', (e) =>{
     const files = e.target.files;    
-    let fileName, fileType, fileUrl = doSomethingWithFiles(files);
+    const [fileUrl, fileName, fileType] = doSomethingWithFiles(files);
+    console.log("image:", fileUrl, fileName, fileType)
     uploadImage(fileUrl, fileName, fileType);
 });
