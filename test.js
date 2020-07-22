@@ -21,7 +21,7 @@ var convertToBase64 = function(url, imagetype, callback){
     img.crossOrigin = 'Anonymous'
 
     // Because image loading is asynchronous, we define an event listening function that will be called when the image has been loaded
-    img.onLoad = function(){
+    img.onload = function(){
         // When the image is loaded, this function is called with the image object as its context or 'this' value
         canvas.height = this.height;
         canvas.width = this.width;
@@ -70,8 +70,7 @@ var uploadImage = function(src, name, type){
 // or webp
 const imageInput = document.getElementById("screen-picture");
 imageInput.addEventListener('change', (e) =>{
-    console.log("image:")
-    console.log(e.target.files)
+    console.log("image:", e.target.files[0])
+    console.log("example_01:")
+    uploadImage('images/example_01.png', 'example_01.png', 'image/png');
 });
-
-uploadImage(imgsrc, name, 'image/jpeg')
