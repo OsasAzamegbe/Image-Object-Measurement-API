@@ -10,6 +10,9 @@ from PIL import Image
 from io import BytesIO
 
 def decodeImage(imgstring):
+    '''
+    Decode base64 coded string to its original image form
+    '''
     imgdata = base64.b64decode(str(imgstring))
     image = Image.open(BytesIO(imgdata))
     return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
