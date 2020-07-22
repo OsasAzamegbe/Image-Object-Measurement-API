@@ -1,3 +1,7 @@
+
+
+
+
 // This function accepts three arguments, the URL of the image to be 
 // converted, the mime type of the Base64 image to be output, and a 
 // callback function that will be called with the data URL as its argument 
@@ -64,5 +68,10 @@ var uploadImage = function(src, name, type){
 
 // Call the function with the provided values. The mime type could also be png
 // or webp
+const imageInput = document.getElementById("screen-picture");
+imageInput.addEventListener('change', (e) =>{
+    console.log("image:")
+    console.log(e.target.files)
+});
 
 uploadImage(imgsrc, name, 'image/jpeg')
