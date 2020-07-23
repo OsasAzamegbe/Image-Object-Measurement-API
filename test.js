@@ -45,7 +45,7 @@ var convertToBase64 = function(url, imagetype, callback){
 
 var sendBase64ToServer = function(name, base64){
     var httpPost = new XMLHttpRequest(),
-        path = "http://127.0.0.1:8000/measure/" + name,
+        path = "http://127.0.0.1:8000/api/v1/measure/" + name,
         data = JSON.stringify({image: base64});
         console.log(data);
         console.log(path)
