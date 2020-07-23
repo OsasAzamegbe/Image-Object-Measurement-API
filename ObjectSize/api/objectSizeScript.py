@@ -50,7 +50,7 @@ def getContours(gray):
     cnts = imutils.grab_contours(cnts)
     return cnts
 
-def driver(image, ref):
+def driver(image, ref, name):
     '''
     Driver function for getting size of objects in image
     '''
@@ -133,17 +133,17 @@ def driver(image, ref):
             0.35, (255, 255, 255), 1)
 
     # save the image in the images folder
-    cv2.imwrite(f'./images/results/result.jpg', orig)
+    cv2.imwrite(f'./images/results/received_{name}.jpg', orig)
     # counter += 1
 
 
-def test(i, ref):
+def test(i, ref, name):
     '''
     Test function to make sure images are processed and objects are measured
     '''
     if 1 <= i <= 3:
         image = cv2.imread(f'./images/example_0{i}.png')
-        driver(image, ref)
+        driver(image, ref, name)
         return "Successful"
     return "Input number, i, between 1 and 3"
 
@@ -153,5 +153,5 @@ image no.       ref
 2               0.955
 3               3.5
 '''
-output = test(1, 0.955)
+output = test(1, 0.955, "random")
 print(output)

@@ -45,12 +45,12 @@ var convertToBase64 = function(url, imagetype, callback){
 
 var sendBase64ToServer = function(name, base64){
     var httpPost = new XMLHttpRequest(),
-        path = "http://127.0.0.1:8000/uploadImage/" + name,
+        path = "http://127.0.0.1:8000/measure/" + name,
         data = JSON.stringify({image: base64});
         console.log(data);
         console.log(path)
     httpPost.onreadystatechange = function(err) {
-        if (httpPost.readyState == 4 && httpPost.status == 200){
+        if (httpPost.readyState == 4 && httpPost.status == 201){
             console.log("SUCCESS:", httpPost.responseText);
         } else {
             console.log(err);
