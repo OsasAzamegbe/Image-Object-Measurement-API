@@ -134,6 +134,7 @@ def driver(image, ref, name):
 
     # save the image in the images folder
     cv2.imwrite(f'./images/results/received_{name}.jpg', orig)
+
     # counter += 1
 
 
