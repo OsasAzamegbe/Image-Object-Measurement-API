@@ -63,6 +63,7 @@ def driver(image, ref, name):
     width = ref # default pixel to inch conversion based on the width of our reference object (US quarter coin)
     # counter = 1 # initialize counter variable for naming our different images with their contours
     orig = image.copy() # create copy for resulting image
+    sizes = [] # create list of resulting contour sizes
 
     # loop over the contours individually
     for c in cnts:
@@ -123,6 +124,7 @@ def driver(image, ref, name):
         # compute the size of the object
         dimA = dA / pixelsPerMetric
         dimB = dB / pixelsPerMetric
+        sizes.append({'height': str(dimA), 'width': str(dimB)})
 
         # draw the object sizes on the image
         cv2.putText(orig, "{:.1f}in".format(dimA),
@@ -135,7 +137,8 @@ def driver(image, ref, name):
     # save the image in the images folder
     cv2.imwrite(f'./images/results/received_{name}.jpg', orig)
 
-    # counter += 1
+    return sizes
+
 
 
 def test(i, ref, name):

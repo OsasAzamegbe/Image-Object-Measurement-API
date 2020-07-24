@@ -47,21 +47,21 @@ var sendBase64ToServer = function(name, base64){
     var httpPost = new XMLHttpRequest(),
         path = "http://127.0.0.1:8000/api/v1/measure/" + name,
         data = JSON.stringify({image: base64});
-        console.log(data);
-        console.log(path)
+    console.log(data);
+
+    httpPost.open("POST", path, true);    
+    // Set the content type of the request to json since that's what's being sent
+    httpPost.setRequestHeader('Content-Type', 'application/json');
+    httpPost.send(data);
+
     httpPost.onreadystatechange = function(err) {
         if (httpPost.readyState == 4 && httpPost.status == 200){
             console.log("SUCCESS:", httpPost.responseText);
         } else {
             console.log(err);
         }
-    };
-      
-    httpPost.open("POST", path, true);
+    };      
     
-    // Set the content type of the request to json since that's what's being sent
-    httpPost.setRequestHeader('Content-Type', 'application/json');
-    httpPost.send(data);
 };
 
 // This wrapper function will accept the name of the image, the url, and the 
@@ -78,7 +78,7 @@ var uploadImage = function(src, name, type){
 // Get captured file url
 const output = document.getElementById('output');
 
-function doSomethingWithFiles(fileList) {
+function getFileInfo(fileList) {
 let file = null;
 
 for (let i = 0; i < fileList.length; i++) {
@@ -103,8 +103,9 @@ if (file !== null) {
 // or webp
 const imageInput = document.getElementById("screen-picture");
 imageInput.addEventListener('change', (e) =>{
+    e.preventDefault();
     const files = e.target.files;    
-    const [fileUrl, fileName, fileType] = doSomethingWithFiles(files);
+    const [fileUrl, fileName, fileType] = getFileInfo(files);
     console.log("image:", fileUrl, fileName, fileType)
     uploadImage(fileUrl, fileName, fileType);
 });

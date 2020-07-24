@@ -14,20 +14,20 @@ def measure_objects(request, name, *args, **kwargs):
     """    
     try:
         image_string = request.data["image"]
-        _id = f'{name}_{image_string[-10:]}'
         image = decodeImage(image_string)
         ref = 0.955
-        driver(image, ref, _id)
-        img = cv2.imread(f'./images/results/received_{_id}.jpg')
+        sizes = driver(image, ref, name)
+        img = cv2.imread(f'./images/results/received_{name}.jpg')
         response = {
             'image status': 'created',
-            'name': f'received_{_id}'
+            'name': f'received_{name}',
+            'sizes': sizes
         }
         return Response(response, status=status.HTTP_200_OK)
     except e:
         print(e)
         response = {
-            'error': "file wasn't saved successfully"
+            'error': "file wasn't processed"
         }
         return Response(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
