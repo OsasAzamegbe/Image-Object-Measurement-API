@@ -8,13 +8,13 @@ import cv2
 # Create your views here.
 
 @api_view(["POST"])
-def measure_objects(request):
+def measure_objects(request, name, *args, **kwargs):
     """
     Return measurements for objects in received image file
     """    
     try:
         image_string = request.data["image"]
-        _id = image_string[-10:]
+        _id = f'{name}_{image_string[-10:]}'
         image = decodeImage(image_string)
         ref = 0.955
         driver(image, ref, _id)
@@ -23,7 +23,7 @@ def measure_objects(request):
             'image status': 'created',
             'name': f'received_{_id}'
         }
-        return Response(response, status=status.HTTP_201_CREATED)
+        return Response(response, status=status.HTTP_200_OK)
     except e:
         print(e)
         response = {

@@ -153,5 +153,5 @@ image no.       ref
 2               0.955
 3               3.5
 '''
-output = test(1, 0.955, "random")
-print(output)
+# output = test(1, 0.955, "random")
+# print(output)

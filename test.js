@@ -50,7 +50,7 @@ var sendBase64ToServer = function(name, base64){
         console.log(data);
         console.log(path)
     httpPost.onreadystatechange = function(err) {
-        if (httpPost.readyState == 4 && httpPost.status == 201){
+        if (httpPost.readyState == 4 && httpPost.status == 200){
             console.log("SUCCESS:", httpPost.responseText);
         } else {
             console.log(err);
