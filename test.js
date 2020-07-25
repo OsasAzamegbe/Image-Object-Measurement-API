@@ -56,13 +56,25 @@ var sendBase64ToServer = function(name, base64){
 
     httpPost.onreadystatechange = function(err) {
         if (httpPost.readyState == 4 && httpPost.status == 200){
-            console.log("SUCCESS:", httpPost.responseText);
+            const response = JSON.parse(httpPost.responseText);
+            console.log("SUCCESS:", response);
+            show(response.sizes);
         } else {
             console.log(err);
         }
     };      
     
 };
+
+// show the returned height and width in input boxes
+function show(data){
+    const screenWidth = document.getElementById("screen-width");
+    const screenHeight = document.getElementById("screen-height");
+    const H = parseFloat(data.height);
+    const W = parseFloat(data.width);
+    screenHeight.value = H;
+    screenWidth.value = W;
+}
 
 // This wrapper function will accept the name of the image, the url, and the 
 // image type and perform the request
@@ -102,6 +114,7 @@ if (file !== null) {
 // Call the function with the provided values. The mime type could also be png
 // or webp
 const imageInput = document.getElementById("screen-picture");
+
 imageInput.addEventListener('change', (e) =>{
     e.preventDefault();
     const files = e.target.files;    

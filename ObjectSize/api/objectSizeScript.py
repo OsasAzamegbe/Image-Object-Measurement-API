@@ -124,7 +124,7 @@ def driver(image, ref, name):
         # compute the size of the object
         dimA = dA / pixelsPerMetric
         dimB = dB / pixelsPerMetric
-        sizes.append({'height': str(dimA), 'width': str(dimB)})
+        sizes.append({'height': "{:.1f}".format(dimA), 'width':  "{:.1f}".format(dimB)})
 
         # draw the object sizes on the image
         cv2.putText(orig, "{:.1f}in".format(dimA),
@@ -135,7 +135,7 @@ def driver(image, ref, name):
             0.35, (255, 255, 255), 1)
 
     # save the image in the images folder
-    cv2.imwrite(f'./images/results/received_{name}.jpg', orig)
+    # cv2.imwrite(f'./images/results/received_{name}.jpg', orig)
 
     return sizes
 

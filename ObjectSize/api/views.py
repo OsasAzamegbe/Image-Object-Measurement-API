@@ -17,11 +17,11 @@ def measure_objects(request, name, *args, **kwargs):
         image = decodeImage(image_string)
         ref = 0.955
         sizes = driver(image, ref, name)
-        img = cv2.imread(f'./images/results/received_{name}.jpg')
+        # img = cv2.imread(f'./images/results/received_{name}.jpg')
         response = {
             'image status': 'created',
             'name': f'received_{name}',
-            'sizes': sizes
+            'sizes': sizes[1]
         }
         return Response(response, status=status.HTTP_200_OK)
     except e:
