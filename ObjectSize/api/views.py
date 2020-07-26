@@ -21,9 +21,13 @@ def measure_objects(request, name, *args, **kwargs):
         response = {
             'image status': 'created',
             'name': f'received_{name}',
-            'sizes': sizes[1]
         }
-        return Response(response, status=status.HTTP_200_OK)
+        try:
+            response['sizes'] = sizes[1]
+        except IndexError:
+            response['sizes'] = sizes[0]
+        finally:
+            return Response(response, status=status.HTTP_200_OK)
     except e:
         print(e)
         response = {
