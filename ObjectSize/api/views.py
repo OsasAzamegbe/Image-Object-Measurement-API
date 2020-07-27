@@ -29,9 +29,9 @@ def measure_objects(request, name, *args, **kwargs):
         finally:
             return Response(response, status=status.HTTP_200_OK)
     except e:
-        print(e)
+        # print(e)
         response = {
-            'error': "file wasn't processed"
+            'error': f"file wasn't processed {e}"
         }
         return Response(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
