@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .objectSizeScript import decodeImage, driver
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import cv2
+from .objectSizeScript import driver, decodeImage
 
 # Create your views here.
 
@@ -14,9 +14,9 @@ def measure_objects(request, name, *args, **kwargs):
     """    
     try:
         image_string = request.data["image"]
-        image = decodeImage(image_string)
+        image = objectSizeScript.decodeImage(image_string)
         ref = 0.955
-        sizes = driver(image, ref, name)
+        sizes = objectSizeScript.driver(image, ref, name)
         # img = cv2.imread(f'./images/results/received_{name}.jpg')
         response = {
             'image status': 'created',
@@ -28,10 +28,9 @@ def measure_objects(request, name, *args, **kwargs):
             response['sizes'] = sizes[0]
         finally:
             return Response(response, status=status.HTTP_200_OK)
-    except e:
-        # print(e)
+    except:        
         response = {
-            'error': f"file wasn't processed {e}"
+            'error': f"file wasn't processed"
         }
         return Response(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     

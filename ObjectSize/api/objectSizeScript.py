@@ -1,4 +1,4 @@
-from scipy.spatial import distance as dist
+import scipy.spatial  # import distance as dist
 from imutils import perspective
 from imutils import contours
 import numpy as np
@@ -112,8 +112,8 @@ def driver(image, ref, name):
             (255, 0, 255), 2)
 
         # compute the Euclidean distance between the midpoints
-        dA = dist.euclidean((tltrX, tltrY), (blbrX, blbrY))
-        dB = dist.euclidean((tlblX, tlblY), (trbrX, trbrY))
+        dA = scipy.spatial.distance.euclidean((tltrX, tltrY), (blbrX, blbrY))
+        dB = scipy.spatial.distance.euclidean((tlblX, tlblY), (trbrX, trbrY))
 
         # if the pixels per metric has not been initialized, then
         # compute it as the ratio of pixels to supplied metric

@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'i_(2j1$$%h6y2_@+a@s)rp*!=p9#5$f#wgr18y@e5e2vzeoao9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['mississippi.appshq.io/pythonAPI', 'mississippi.appshq.io']
+ALLOWED_HOSTS = ['www.ppe-app.com', 'ppe-app.com', '127.0.0.1']
 
 
 # Application definition
@@ -124,3 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+STATICFILES_DIR = [BASE_DIR + "/assets",]
+STATIC_ROOT = '/home/ppeavyjv/public_html/static'
+MEDIA_ROOT = '/home/ppeavyjv/public_html/media'
