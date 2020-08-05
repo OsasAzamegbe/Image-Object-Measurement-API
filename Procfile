@@ -1,0 +1,1 @@
+web: gunicorn ObjectSize.wsgi --pythonpath=ObjectSize --log-file -
