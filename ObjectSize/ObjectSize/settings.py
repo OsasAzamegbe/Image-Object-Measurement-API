@@ -25,7 +25,7 @@ SECRET_KEY = 'i_(2j1$$%h6y2_@+a@s)rp*!=p9#5$f#wgr18y@e5e2vzeoao9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.ppe-app.com', 'ppe-app.com', '127.0.0.1']
+ALLOWED_HOSTS = ['www.ppe-app.com', 'ppe-app.com', '127.0.0.1', 'ppe-app.herokuapp.com']
 
 
 # Application definition
