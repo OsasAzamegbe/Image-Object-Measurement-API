@@ -2,7 +2,6 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-import cv2
 from .objectSizeScript import driver, decodeImage
 
 # Create your views here.
