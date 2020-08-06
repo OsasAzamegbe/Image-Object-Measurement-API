@@ -11,25 +11,21 @@ def measure_objects(request, name, *args, **kwargs):
     """
     Return measurements for objects in received image file
     """    
+    
+    image_string = request.data["image"]
+    image = decodeImage(image_string)
+    ref = 0.955
+    sizes = driver(image, ref, name)
+    # img = cv2.imread(f'./images/results/received_{name}.jpg')
+    response = {
+        'image status': 'created',
+        'name': f'received_{name}',
+    }
     try:
-        image_string = request.data["image"]
-        image = objectSizeScript.decodeImage(image_string)
-        ref = 0.955
-        sizes = objectSizeScript.driver(image, ref, name)
-        # img = cv2.imread(f'./images/results/received_{name}.jpg')
-        response = {
-            'image status': 'created',
-            'name': f'received_{name}',
-        }
-        try:
-            response['sizes'] = sizes[1]
-        except IndexError:
-            response['sizes'] = sizes[0]
-        finally:
-            return Response(response, status=status.HTTP_200_OK)
-    except:        
-        response = {
-            'error': f"file wasn't processed"
-        }
-        return Response(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        response['sizes'] = sizes[1]
+    except IndexError:
+        response['sizes'] = sizes[0]
+    finally:
+        return Response(response, status=status.HTTP_200_OK)
+          
     
