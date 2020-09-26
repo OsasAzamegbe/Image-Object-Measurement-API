@@ -9,7 +9,7 @@ import base64
 from PIL import Image
 from io import BytesIO
 
-def decodeImage(request):
+def decodeImage(request: str) -> :
     '''
     Decode base64 coded string to its original image form
     '''
@@ -141,21 +141,9 @@ def driver(image, ref, name):
 
 
 
-def test(i, ref, name):
-    '''
-    Test function to make sure images are processed and objects are measured
-    '''
-    if 1 <= i <= 3:
-        image = cv2.imread(f'./images/example_0{i}.png')
-        driver(image, ref, name)
-        return "Successful"
-    return "Input number, i, between 1 and 3"
-
 '''
 image no.       ref
 1               0.955
 2               0.955
 3               3.5
 '''
-# output = test(1, 0.955, "random")
-# print(output)
