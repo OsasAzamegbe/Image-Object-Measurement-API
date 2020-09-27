@@ -17,5 +17,5 @@ from .views import measure_objects
 from django.urls import path
 
 urlpatterns = [
-    path('measure/<str:name>', measure_objects),
+    path('measure/', measure_objects),
 ]
