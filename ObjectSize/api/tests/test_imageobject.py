@@ -1,11 +1,10 @@
-from django.test import TestCase, SimpleTestCase
-from unittest import TestCase as T
+from django.test import SimpleTestCase
 from api.objectSizeScript import driver, decodeImage
 import os
 import base64
 
 
-class TestImageObjectScript(T):
+class TestImageObjectScript(SimpleTestCase):
     def setUp(self):
         #variables
         self.BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,18 +12,18 @@ class TestImageObjectScript(T):
         self.NAME = 'example_01.png'
         self.REF = 0.955
        
+        #open image and encode
+        with open(os.path.join(self.FOLDER, self.NAME), 'rb') as image_file:
+            self.image = base64.b64encode(image_file.read()).decode('utf-8')
+            
 
     def test_driverscript(self):
         '''
         test ObjectSizeScript
         '''
-        #open image and encode
-        with open(os.path.join(self.FOLDER, self.NAME), 'rb') as image_file:
-            image = base64.b64encode(image_file.read()).decode('utf-8')
+        self.assertIs(type(self.image), str)
 
-        self.assertIs(type(image), str)
-
-        decoded = decodeImage(image)
+        decoded = decodeImage(self.image)
 
         #call driver
         sizes = driver(decoded, self.REF, self.NAME)
