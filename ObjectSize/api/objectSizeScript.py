@@ -8,8 +8,9 @@ import cv2
 import base64
 from PIL import Image
 from io import BytesIO
+from typing import List
 
-def decodeImage(request: str) -> :
+def decodeImage(request: str) -> np.ndarray:
     '''
     Decode base64 coded string to its original image form
     '''
@@ -18,14 +19,14 @@ def decodeImage(request: str) -> :
     image = Image.open(BytesIO(imgdata))
     return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
 
-def midpoint(ptA, ptB):
+def midpoint(ptA: tuple, ptB: tuple) -> tuple:
     '''
     Helper function for computing midpoint of a line.
     '''
     return ((ptA[0] + ptB[0]) * 0.5, (ptA[1] + ptB[1]) * 0.5)  
 
 
-def preprocess(image): 
+def preprocess(image: np.ndarray) -> np.ndarray: 
     '''
     Load the image, convert it to grayscale, and blur it slightly.
     '''     
@@ -33,7 +34,7 @@ def preprocess(image):
     gray = cv2.GaussianBlur(gray, (7, 7), 0)
     return gray
 
-def getContours(gray):
+def getContours(gray: np.ndarray) -> List[np.ndarray]:
     '''
     Perform edge detection, then perform a dilation + erosion to 
     close gaps in between object edges.
@@ -50,7 +51,7 @@ def getContours(gray):
     cnts = imutils.grab_contours(cnts)
     return cnts
 
-def driver(image, ref, name):
+def driver(image: np.ndarray, ref: float, path: str) -> List[dict]:
     '''
     Driver function for getting size of objects in image
     '''
@@ -135,7 +136,7 @@ def driver(image, ref, name):
             0.35, (255, 255, 255), 1)
 
     # save the image in the images folder
-    # cv2.imwrite(f'./images/results/received_{name}.jpg', orig)
+    # cv2.imwrite(path, orig)
 
     return sizes
 

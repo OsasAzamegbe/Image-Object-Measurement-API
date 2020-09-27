@@ -18,8 +18,8 @@ def measure_objects(request, name, *args, **kwargs):
     sizes = driver(image, ref, name)
     # img = cv2.imread(f'./images/results/received_{name}.jpg')
     response = {
-        'image status': 'created',
-        'name': f'received_{name}',
+        'created': True,
+        'name': name,
     }
     try:
         response['sizes'] = sizes[1]
