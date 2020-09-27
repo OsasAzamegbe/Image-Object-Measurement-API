@@ -62,7 +62,6 @@ def driver(image: np.ndarray, ref: float, path: str) -> List[dict]:
     (cnts, _) = contours.sort_contours(cnts)
     pixelsPerMetric = None
     width = ref # default pixel to inch conversion based on the width of our reference object (US quarter coin)
-    # counter = 1 # initialize counter variable for naming our different images with their contours
     orig = image.copy() # create copy for resulting image
     sizes = [] # create list of resulting contour sizes
 
