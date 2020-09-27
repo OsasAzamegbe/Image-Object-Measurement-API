@@ -19,13 +19,21 @@ class TestImageObjectScript(T):
         test ObjectSizeScript
         '''
         #open image and encode
-        with open(os.path.join(self.FOLDER, self.NAME), 'rb') as image_file:
-            image = base64.b64encode(image_file.read())
+        # with open(os.path.join(self.FOLDER, self.NAME), 'rb') as image_file:
+        #     image = base64.b64encode(image_file.read()).decode('utf-8')
+        folder = 'testImages/'
+        name = 'example_01.png'
+        ref = 0.955
+
+        with open(folder + name, 'rb') as img_file:
+            image = base64.b64encode(img_file.read()).decode('utf-8')
+
+        self.assertIs(type(image), str)
 
         decoded = decodeImage(image)
 
         #call driver
-        sizes = driver(image, self.REF, self.NAME)
+        sizes = driver(decoded, self.REF, self.NAME)
 
         # assert values
         self.assertEqual(len(sizes), 6)
@@ -35,4 +43,3 @@ class TestImageObjectScript(T):
             self.assertIn('width', sizes[i])
             self.assertIs(type(sizes[i]['width']), float)
 
-        self.assertTrue(os.path.exists(f'{self.FOLDER}{self.RESULT_NAME}'))

@@ -14,7 +14,7 @@ def decodeImage(request: str) -> np.ndarray:
     '''
     Decode base64 coded string to its original image form
     '''
-    imgstring = request.split('base64,')[1]
+    imgstring = request
     imgdata = base64.b64decode(str(imgstring) + '===')
     image = Image.open(BytesIO(imgdata))
     return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
@@ -125,7 +125,7 @@ def driver(image: np.ndarray, ref: float, path: str) -> List[dict]:
         # compute the size of the object
         dimA = dA / pixelsPerMetric
         dimB = dB / pixelsPerMetric
-        sizes.append({'height': "{:.1f}".format(dimA), 'width':  "{:.1f}".format(dimB)})
+        sizes.append({'height': round(dimA, 2), 'width':  round(dimB, 2)})
 
         # draw the object sizes on the image
         cv2.putText(orig, "{:.1f}in".format(dimA),
