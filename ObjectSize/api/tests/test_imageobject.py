@@ -53,7 +53,7 @@ class TestImageObjectScript(TestCase):
         response_json = response.json()
 
         # assert values
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('created', response_json)
         self.assertIn('name', response_json)
         self.assertIn('sizes', response_json)
