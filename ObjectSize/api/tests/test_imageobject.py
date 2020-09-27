@@ -19,14 +19,8 @@ class TestImageObjectScript(T):
         test ObjectSizeScript
         '''
         #open image and encode
-        # with open(os.path.join(self.FOLDER, self.NAME), 'rb') as image_file:
-        #     image = base64.b64encode(image_file.read()).decode('utf-8')
-        folder = 'testImages/'
-        name = 'example_01.png'
-        ref = 0.955
-
-        with open(folder + name, 'rb') as img_file:
-            image = base64.b64encode(img_file.read()).decode('utf-8')
+        with open(os.path.join(self.FOLDER, self.NAME), 'rb') as image_file:
+            image = base64.b64encode(image_file.read()).decode('utf-8')
 
         self.assertIs(type(image), str)
 
