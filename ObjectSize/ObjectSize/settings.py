@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import environ
+import django_heroku
 
 env = environ.Env()
 environ.Env.read_env()
@@ -29,7 +30,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'image-object-measurement.herokuapp.com', 'image-object-measurement-staging.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'imgobjectmeasurement.herokuapp.com', 'imgobjectmeasurement-staging.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'drf_yasg',
+    'environ',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+django_heroku.settings(locals())

@@ -14,7 +14,7 @@ def measure_objects(request, *args, **kwargs):
 
     The POST request should be sent to:
     
-        https://image-object-measurement.herokuapp.com/api/v1/measure/
+        https://imgobjectmeasurement.herokuapp.com/api/v1/measure/
 
 
     A sample request body is shown below:
