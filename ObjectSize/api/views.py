@@ -1,6 +1,5 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
 from api.objectSizeScript import driver, decodeImage
 
 # Create your views here.
@@ -85,13 +84,14 @@ def measure_objects(request, *args, **kwargs):
             'name': name,
             'sizes': sizes
         }
+        status = 201
     except:
         response = {
             'created': False,
             'name': "",
             'sizes': []
         }
-
-    return Response(response, status=status.HTTP_201_CREATED)
+        status = 500
+    return Response(response, status=status)
           
     
